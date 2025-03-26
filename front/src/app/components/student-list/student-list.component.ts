@@ -1,69 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Student } from '../../models/student';
-import { StudentService } from '../../services/student.service';
+import { Client } from '../../models/student';
+import { ClientService } from '../../services/student.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-student-list',
+  selector: 'app-client-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css'],
   standalone: true,
   imports: [CommonModule, RouterModule]
 })
-export class StudentListComponent implements OnInit {
-  students: Student[] = [];
+export class ClientListComponent implements OnInit {
+  clients: Client[] = [];
 
-  constructor(
-    private studentService: StudentService,
-    private router: Router
-  ) { }
+  constructor(private clientService: ClientService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadStudents();
+    this.getClients();
   }
 
-  loadStudents(): void {
-    console.log('Cargando estudiantes...');
-    this.studentService.getStudents().subscribe({
+  private getClients(): void {
+    this.clientService.getClientList().subscribe({
       next: (data) => {
-        console.log('Estudiantes recibidos:', data);
-        this.students = data;
-        // Revisar la estructura de cada estudiante
-        if (this.students.length > 0) {
-          console.log('Primer estudiante:', this.students[0]);
-          console.log('ID del primer estudiante:', this.students[0].stundentId);
-        }
+        console.log('Clientes cargados:', data);
+        this.clients = data;
       },
       error: (error) => {
-        console.error('Error al cargar estudiantes:', error);
+        console.error('Error al cargar clientes:', error);
       }
     });
   }
 
-  updateStudent(id: number): void {
-    console.log('Navegando a editar estudiante:', id);
-    this.router.navigate(['/update-student', id]);
+  updateClient(id: number): void {
+    this.router.navigate(['/update-client', id]);
   }
 
-  deleteStudent(id: number): void {
-    if (confirm('¿Está seguro de que desea eliminar este estudiante?')) {
-      console.log('Eliminando estudiante:', id);
-      this.studentService.deleteStudent(id).subscribe({
+  deleteClient(id: number): void {
+    if (confirm('¿Está seguro que desea eliminar este cliente?')) {
+      this.clientService.deleteClient(id).subscribe({
         next: () => {
-          console.log('Estudiante eliminado exitosamente');
-          this.loadStudents();
+          console.log('Cliente eliminado exitosamente');
+          this.getClients();
         },
         error: (error) => {
-          console.error('Error al eliminar estudiante:', error);
+          console.error('Error al eliminar cliente:', error);
         }
       });
     }
   }
 
-  studentDetails(id: number): void {
-    console.log('Navegando a detalles del estudiante:', id);
-    this.router.navigate(['/student-details', id]);
+  clientDetails(id: number): void {
+    this.router.navigate(['/client-details', id]);
   }
 }

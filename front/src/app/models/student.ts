@@ -1,4 +1,4 @@
-export interface Student {
+export interface Client {
     stundentId?: number;
     firstName: string;
     lastName: string;
