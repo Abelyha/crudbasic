@@ -1,0 +1,34 @@
+package com.example.crudrapido.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        
+        // Permitir todas las cabeceras
+        config.addAllowedHeader("*");
+        
+        // Permitir todos los métodos (GET, POST, PUT, DELETE, etc.)
+        config.addAllowedMethod("*");
+        
+        // Permitir solicitudes desde localhost:4200 (frontend Angular)
+        config.addAllowedOrigin("http://localhost:4200");
+        
+        // Permitir cookies
+        config.setAllowCredentials(true);
+        
+        // Aplicar la configuración a todas las rutas
+        source.registerCorsConfiguration("/**", config);
+        
+        return new CorsFilter(source);
+    }
+} 

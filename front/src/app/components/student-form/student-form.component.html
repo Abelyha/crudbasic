@@ -1,0 +1,111 @@
+<div class="row fade-in">
+    <div class="col-md-10 offset-md-1">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0 d-flex align-items-center">
+                    <i class="bi me-2" [ngClass]="{
+                        'bi-person-plus-fill': !isUpdateMode && !isViewMode,
+                        'bi-pencil-square': isUpdateMode,
+                        'bi-person-badge-fill': isViewMode
+                    }"></i>
+                    {{ isViewMode ? 'Detalles del Estudiante' : (isUpdateMode ? 'Actualizar Estudiante' : 'Registrar Nuevo Estudiante') }}
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <div *ngIf="isViewMode" class="text-center mb-4">
+                    <div class="avatar-large bg-primary mx-auto mb-3">
+                        {{ student.firstName.charAt(0) }}{{ student.lastName.charAt(0) }}
+                    </div>
+                    <h4>{{ student.firstName }} {{ student.lastName }}</h4>
+                    <a href="mailto:{{ student.email }}" class="text-primary">
+                        <i class="bi bi-envelope me-1"></i>{{ student.email }}
+                    </a>
+                </div>
+
+                <form (ngSubmit)="onSubmit()" class="form-highlight">
+                    <div class="mb-4 row" *ngIf="!isViewMode">
+                        <label for="firstName" class="col-sm-3 col-form-label">Nombre:</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-person-fill text-primary"></i>
+                                </span>
+                                <input type="text" class="form-control" id="firstName" 
+                                    [(ngModel)]="student.firstName" name="firstName" 
+                                    [readonly]="isViewMode" [class.form-control-plaintext]="isViewMode"
+                                    placeholder="Ingrese el nombre">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row" *ngIf="!isViewMode">
+                        <label for="lastName" class="col-sm-3 col-form-label">Apellido:</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-person-fill text-primary"></i>
+                                </span>
+                                <input type="text" class="form-control" id="lastName" 
+                                    [(ngModel)]="student.lastName" name="lastName" 
+                                    [readonly]="isViewMode" [class.form-control-plaintext]="isViewMode"
+                                    placeholder="Ingrese el apellido">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row" *ngIf="!isViewMode">
+                        <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-envelope-fill text-primary"></i>
+                                </span>
+                                <input type="email" class="form-control" id="email" 
+                                    [(ngModel)]="student.email" name="email" 
+                                    [readonly]="isViewMode" [class.form-control-plaintext]="isViewMode"
+                                    placeholder="nombre@ejemplo.com">
+                            </div>
+                            <div class="form-text" *ngIf="!isViewMode">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Ingrese una dirección de correo válida
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4 gap-3">
+                        <button class="btn btn-secondary d-flex align-items-center" (click)="goToStudentList()" type="button">
+                            <i class="bi bi-arrow-left me-2"></i>
+                            {{ isViewMode ? 'Volver' : 'Cancelar' }}
+                        </button>
+                        <button *ngIf="!isViewMode" class="btn btn-primary d-flex align-items-center" type="submit">
+                            <i class="bi me-2" [ngClass]="{'bi-save-fill': !isUpdateMode, 'bi-check-circle-fill': isUpdateMode}"></i>
+                            {{ isUpdateMode ? 'Actualizar' : 'Guardar' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-highlight .form-control:focus {
+        border-left: 4px solid #3f51b5;
+    }
+    
+    .input-group-text {
+        border: none;
+    }
+    
+    .avatar-large {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+</style>

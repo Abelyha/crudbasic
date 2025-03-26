@@ -1,0 +1,266 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary: #3f51b5;
+    --primary-light: #757de8;
+    --primary-dark: #002984;
+    --secondary: #ff4081;
+    --secondary-light: #ff79b0;
+    --secondary-dark: #c60055;
+    --success: #4caf50;
+    --danger: #f44336;
+    --warning: #ff9800;
+    --info: #2196f3;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --gray: #6c757d;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+/* Navbar personalizada */
+.navbar-dark {
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary)) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover:after, .nav-link.active:after {
+    width: 100%;
+}
+
+/* Tarjetas con efecto de elevación */
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+}
+
+.card.shadow-sm {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 1.25rem;
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(45deg, var(--primary), var(--primary-light)) !important;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Botones elegantes */
+.btn {
+    border-radius: 50px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.875rem;
+    padding: 0.6rem 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.btn:active::after {
+    width: 200px;
+    height: 200px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary), var(--primary-light));
+    border: none;
+    box-shadow: 0 4px 10px rgba(63, 81, 181, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+    box-shadow: 0 6px 15px rgba(63, 81, 181, 0.4);
+}
+
+.btn-secondary {
+    background: var(--gray);
+    border: none;
+    box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    box-shadow: 0 6px 15px rgba(108, 117, 125, 0.4);
+}
+
+.btn-danger {
+    background: linear-gradient(45deg, var(--danger), #ff5252);
+    border: none;
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(45deg, #d32f2f, var(--danger));
+    box-shadow: 0 6px 15px rgba(244, 67, 54, 0.4);
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+}
+
+/* Botones de acción */
+.btn-outline-info, .btn-outline-danger, .btn-outline-primary {
+    border-radius: 50px;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.btn-outline-info:hover {
+    background-color: var(--info);
+    color: white;
+    box-shadow: 0 3px 8px rgba(33, 150, 243, 0.3);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--danger);
+    color: white;
+    box-shadow: 0 3px 8px rgba(244, 67, 54, 0.3);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 3px 8px rgba(63, 81, 181, 0.3);
+}
+
+/* Tablas mejoradas */
+.table {
+    margin-bottom: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(63, 81, 181, 0.06);
+}
+
+.table thead th {
+    background-color: var(--primary);
+    color: white;
+    font-weight: 500;
+    border: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+}
+
+/* Campos de formulario */
+.form-control {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(63, 81, 181, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--gray);
+}
+
+/* Animaciones */
+.fade-in {
+    animation: fadeIn ease 0.8s;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: translateY(0);}
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    color: white;
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Badtges */
+.badge {
+    padding: 0.5em 1em;
+    font-weight: 500;
+    border-radius: 50px;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-info {
+    background-color: rgba(33, 150, 243, 0.15);
+    color: #0c5460;
+}
