@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ClientFormComponent implements OnInit {
   client: Client = {
+    stundentId: null,
     firstName: '',
     lastName: '',
     email: ''

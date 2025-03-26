@@ -1,91 +1,205 @@
-<div class="row justify-content-center fade-in">
-    <div class="col-md-8">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">
-                    <i class="bi bi-person-fill me-2"></i>
-                    {{ isUpdateMode ? 'Actualizar Cliente' : (isViewMode ? 'Detalles del Cliente' : 'Nuevo Cliente') }}
-                </h3>
-            </div>
-            <div class="card-body">
-                <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">Nombre</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-person"></i></span>
-                            <input type="text" 
-                                   class="form-control" 
-                                   id="firstName" 
-                                   [(ngModel)]="client.firstName" 
-                                   name="firstName" 
-                                   required 
-                                   [readonly]="isViewMode"
-                                   #firstName="ngModel">
-                        </div>
-                        <div class="text-danger" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-                            El nombre es requerido
-                        </div>
-                    </div>
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Inicio</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/clients" class="text-decoration-none">Gestión de Clientes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ isUpdateMode ? 'Editar Cliente' : (isViewMode ? 'Detalles del Cliente' : 'Nuevo Cliente') }}
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Apellido</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-person"></i></span>
-                            <input type="text" 
-                                   class="form-control" 
-                                   id="lastName" 
-                                   [(ngModel)]="client.lastName" 
-                                   name="lastName" 
-                                   required 
-                                   [readonly]="isViewMode"
-                                   #lastName="ngModel">
+    <!-- Main Content -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-circle me-3">
+                            <i class="bi" [ngClass]="{
+                                'bi-person-plus': !isUpdateMode && !isViewMode,
+                                'bi-person-gear': isUpdateMode,
+                                'bi-person': isViewMode
+                            }"></i>
                         </div>
-                        <div class="text-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
-                            El apellido es requerido
+                        <div>
+                            <h4 class="card-title mb-0">
+                                {{ isUpdateMode ? 'Editar Cliente' : (isViewMode ? 'Detalles del Cliente' : 'Nuevo Cliente') }}
+                            </h4>
+                            <small class="text-muted">
+                                {{ isUpdateMode ? 'Modifique los datos del cliente' : (isViewMode ? 'Información del cliente' : 'Complete el formulario para registrar un nuevo cliente') }}
+                            </small>
                         </div>
                     </div>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+                        <div class="mb-4">
+                            <label for="firstName" class="form-label">Nombre</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-person text-muted"></i>
+                                </span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="firstName" 
+                                       name="firstName"
+                                       [(ngModel)]="client.firstName" 
+                                       required
+                                       [readonly]="isViewMode"
+                                       #firstName="ngModel"
+                                       placeholder="Ingrese el nombre">
+                            </div>
+                            <div class="form-text text-danger" 
+                                 *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                                El nombre es requerido
+                            </div>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                            <input type="email" 
-                                   class="form-control" 
-                                   id="email" 
-                                   [(ngModel)]="client.email" 
-                                   name="email" 
-                                   required 
-                                   email
-                                   [readonly]="isViewMode"
-                                   #email="ngModel">
+                        <div class="mb-4">
+                            <label for="lastName" class="form-label">Apellido</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-person text-muted"></i>
+                                </span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="lastName" 
+                                       name="lastName"
+                                       [(ngModel)]="client.lastName" 
+                                       required
+                                       [readonly]="isViewMode"
+                                       #lastName="ngModel"
+                                       placeholder="Ingrese el apellido">
+                            </div>
+                            <div class="form-text text-danger" 
+                                 *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                                El apellido es requerido
+                            </div>
                         </div>
-                        <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-                            <div *ngIf="email.errors?.['required']">El email es requerido</div>
-                            <div *ngIf="email.errors?.['email']">Por favor ingrese un email válido</div>
-                        </div>
-                    </div>
 
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-secondary" type="button" (click)="goToClientList()">
-                            <i class="bi bi-arrow-left me-2"></i>Volver
-                        </button>
-                        <button *ngIf="!isViewMode" 
-                                class="btn btn-primary" 
-                                type="submit" 
-                                [disabled]="!clientForm.form.valid">
-                            <i class="bi" [ngClass]="isUpdateMode ? 'bi-check-circle' : 'bi-plus-circle'"></i>
-                            {{ isUpdateMode ? ' Actualizar' : ' Guardar' }}
-                        </button>
-                    </div>
-                </form>
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-envelope text-muted"></i>
+                                </span>
+                                <input type="email" 
+                                       class="form-control" 
+                                       id="email" 
+                                       name="email"
+                                       [(ngModel)]="client.email" 
+                                       required 
+                                       email
+                                       [readonly]="isViewMode"
+                                       #email="ngModel"
+                                       placeholder="nombre@ejemplo.com">
+                            </div>
+                            <div class="form-text text-danger" 
+                                 *ngIf="email.invalid && (email.dirty || email.touched)">
+                                <div *ngIf="email.errors?.['required']">El email es requerido</div>
+                                <div *ngIf="email.errors?.['email']">Ingrese un email válido</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4 pt-2">
+                            <button type="button" 
+                                    class="btn btn-outline-secondary d-flex align-items-center" 
+                                    (click)="goToClientList()">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Volver
+                            </button>
+                            <button *ngIf="!isViewMode" 
+                                    type="submit" 
+                                    class="btn btn-primary d-flex align-items-center"
+                                    [disabled]="!clientForm.form.valid">
+                                <i class="bi" [ngClass]="isUpdateMode ? 'bi-check-lg' : 'bi-plus-lg'" class="me-2"></i>
+                                {{ isUpdateMode ? 'Guardar Cambios' : 'Crear Cliente' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <style>
+.avatar-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--bs-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.form-control:focus,
+.input-group-text {
+    border-color: #dee2e6;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
+}
+
+.input-group-text {
+    border-right: none;
+}
+
+.input-group > .form-control {
+    border-left: none;
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: #86b7fe;
+}
+
 .form-control:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    border-color: #86b7fe;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    border-color: #dc3545;
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.form-text {
+    font-size: 0.875rem;
 }
 </style>

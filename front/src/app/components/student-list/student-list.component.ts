@@ -25,7 +25,10 @@ export class ClientListComponent implements OnInit {
     this.clientService.getClientList().subscribe({
       next: (data) => {
         console.log('Clientes cargados:', data);
-        this.clients = data;
+        this.clients = data.map(client => ({
+          ...client,
+          stundentId: client.stundentId || null
+        }));
       },
       error: (error) => {
         console.error('Error al cargar clientes:', error);
@@ -33,12 +36,14 @@ export class ClientListComponent implements OnInit {
     });
   }
 
-  updateClient(id: number): void {
-    this.router.navigate(['/update-client', id]);
+  updateClient(id: number | null): void {
+    if (id) {
+      this.router.navigate(['/update-client', id]);
+    }
   }
 
-  deleteClient(id: number): void {
-    if (confirm('¿Está seguro que desea eliminar este cliente?')) {
+  deleteClient(id: number | null): void {
+    if (id && confirm('¿Está seguro que desea eliminar este cliente?')) {
       this.clientService.deleteClient(id).subscribe({
         next: () => {
           console.log('Cliente eliminado exitosamente');
@@ -51,7 +56,9 @@ export class ClientListComponent implements OnInit {
     }
   }
 
-  clientDetails(id: number): void {
-    this.router.navigate(['/client-details', id]);
+  clientDetails(id: number | null): void {
+    if (id) {
+      this.router.navigate(['/client-details', id]);
+    }
   }
 }
